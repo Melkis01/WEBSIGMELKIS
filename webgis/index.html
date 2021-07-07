@@ -1,0 +1,1922 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css">
+        <link rel="stylesheet" href="css/leaflet-search.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-search.js"></script>
+        <script src="data/tambak_1.js"></script>
+        <script src="data/tani_2.js"></script>
+        <script src="data/kota_3.js"></script>
+        <script src="data/lahankosong_4.js"></script>
+        <script src="data/pusatdinas_5.js"></script>
+        <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+
+            if (e.target.feature.geometry.type === 'LineString') {
+              highlightLayer.setStyle({
+                color: '#ffff00',
+              });
+            } else {
+              highlightLayer.setStyle({
+                fillColor: '#ffff00',
+                fillOpacity: 1
+              });
+            }
+            highlightLayer.openPopup();
+        }
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[-7.03002876703,110.400080546],[-6.36483354791,111.676167978]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.addAttribution('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a>');
+        L.control.locate().addTo(map);
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        var overlay_GoogleRoad_0 = L.tileLayer('https://mt1.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+            opacity: 1.0
+        });
+        overlay_GoogleRoad_0.addTo(map);
+        map.addLayer(overlay_GoogleRoad_0);
+        function pop_tambak_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>id</strong><br />' + (feature.properties['id'] !== null ? Autolinker.link(String(feature.properties['id'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nama</th>\
+                        <td>' + (feature.properties['Nama'] !== null ? Autolinker.link(String(feature.properties['Nama'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Sawah</th>\
+                        <td>' + (feature.properties['Sawah'] !== null ? Autolinker.link(String(feature.properties['Sawah'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Lhn_tani</th>\
+                        <td>' + (feature.properties['Lhn_tani'] !== null ? Autolinker.link(String(feature.properties['Lhn_tani'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tambak</th>\
+                        <td>' + (feature.properties['Tambak'] !== null ? Autolinker.link(String(feature.properties['Tambak'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">bkn_tani</th>\
+                        <td>' + (feature.properties['bkn_tani'] !== null ? Autolinker.link(String(feature.properties['bkn_tani'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_tambak_1_0(feature) {
+            switch(String(feature.properties['Tambak'])) {
+                case '4':
+                    return {
+                pane: 'pane_tambak_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,204,1.0)',
+            }
+                    break;
+                case '7':
+                    return {
+                pane: 'pane_tambak_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(243,250,194,1.0)',
+            }
+                    break;
+                case '8':
+                    return {
+                pane: 'pane_tambak_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(230,245,183,1.0)',
+            }
+                    break;
+                case '31':
+                    return {
+                pane: 'pane_tambak_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(217,240,172,1.0)',
+            }
+                    break;
+                case '44':
+                    return {
+                pane: 'pane_tambak_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(204,234,161,1.0)',
+            }
+                    break;
+                case '78':
+                    return {
+                pane: 'pane_tambak_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(190,229,151,1.0)',
+            }
+                    break;
+                case '88':
+                    return {
+                pane: 'pane_tambak_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(175,222,145,1.0)',
+            }
+                    break;
+                case '109':
+                    return {
+                pane: 'pane_tambak_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(159,215,138,1.0)',
+            }
+                    break;
+                case '202':
+                    return {
+                pane: 'pane_tambak_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(143,208,131,1.0)',
+            }
+                    break;
+                case '210':
+                    return {
+                pane: 'pane_tambak_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(128,202,124,1.0)',
+            }
+                    break;
+                case '408':
+                    return {
+                pane: 'pane_tambak_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(112,195,117,1.0)',
+            }
+                    break;
+                case '428':
+                    return {
+                pane: 'pane_tambak_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(97,187,109,1.0)',
+            }
+                    break;
+                case '534':
+                    return {
+                pane: 'pane_tambak_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(82,180,101,1.0)',
+            }
+                    break;
+                case '1225':
+                    return {
+                pane: 'pane_tambak_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(67,172,94,1.0)',
+            }
+                    break;
+                case '1241':
+                    return {
+                pane: 'pane_tambak_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(52,165,86,1.0)',
+            }
+                    break;
+                case '1358':
+                    return {
+                pane: 'pane_tambak_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(41,154,79,1.0)',
+            }
+                    break;
+                case '1369':
+                    return {
+                pane: 'pane_tambak_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(31,141,73,1.0)',
+            }
+                    break;
+                case '1488':
+                    return {
+                pane: 'pane_tambak_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(20,129,67,1.0)',
+            }
+                    break;
+                case '2742':
+                    return {
+                pane: 'pane_tambak_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(10,116,61,1.0)',
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_tambak_1',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,104,55,1.0)',
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_tambak_1');
+        map.getPane('pane_tambak_1').style.zIndex = 401;
+        map.getPane('pane_tambak_1').style['mix-blend-mode'] = 'normal';
+        var layer_tambak_1 = new L.geoJson(json_tambak_1, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_tambak_1',
+            onEachFeature: pop_tambak_1,
+            style: style_tambak_1_0,
+        });
+        bounds_group.addLayer(layer_tambak_1);
+        map.addLayer(layer_tambak_1);
+        function pop_tani_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>id</strong><br />' + (feature.properties['id'] !== null ? Autolinker.link(String(feature.properties['id'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nama</th>\
+                        <td>' + (feature.properties['Nama'] !== null ? Autolinker.link(String(feature.properties['Nama'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Sawah</th>\
+                        <td>' + (feature.properties['Sawah'] !== null ? Autolinker.link(String(feature.properties['Sawah'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Lhn_tani</th>\
+                        <td>' + (feature.properties['Lhn_tani'] !== null ? Autolinker.link(String(feature.properties['Lhn_tani'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tambak</th>\
+                        <td>' + (feature.properties['Tambak'] !== null ? Autolinker.link(String(feature.properties['Tambak'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">bkn_tani</th>\
+                        <td>' + (feature.properties['bkn_tani'] !== null ? Autolinker.link(String(feature.properties['bkn_tani'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_tani_2_0(feature) {
+            switch(String(feature.properties['Lhn_tani'])) {
+                case '823':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(247,252,245,1.0)',
+            }
+                    break;
+                case '1040':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(244,251,242,1.0)',
+            }
+                    break;
+                case '1265':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(241,250,238,1.0)',
+            }
+                    break;
+                case '1344':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(237,249,234,1.0)',
+            }
+                    break;
+                case '1536':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(234,247,230,1.0)',
+            }
+                    break;
+                case '1627':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(231,246,226,1.0)',
+            }
+                    break;
+                case '1829':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(226,244,220,1.0)',
+            }
+                    break;
+                case '2063':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(220,242,214,1.0)',
+            }
+                    break;
+                case '2088':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(214,239,208,1.0)',
+            }
+                    break;
+                case '2178':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(209,237,202,1.0)',
+            }
+                    break;
+                case '2184':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(203,235,196,1.0)',
+            }
+                    break;
+                case '2558':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(197,232,190,1.0)',
+            }
+                    break;
+                case '2721':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(190,229,183,1.0)',
+            }
+                    break;
+                case '2947':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(183,226,176,1.0)',
+            }
+                    break;
+                case '3595':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(175,223,169,1.0)',
+            }
+                    break;
+                case '3963':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(168,220,162,1.0)',
+            }
+                    break;
+                case '4075':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(161,217,155,1.0)',
+            }
+                    break;
+                case '4221':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(153,213,148,1.0)',
+            }
+                    break;
+                case '4937':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(144,209,141,1.0)',
+            }
+                    break;
+                case '5023':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(136,205,134,1.0)',
+            }
+                    break;
+                case '7253':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(127,201,127,1.0)',
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(119,198,120,1.0)',
+            }
+                    break;
+                case '108':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(109,193,115,1.0)',
+            }
+                    break;
+                case '268':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(100,188,110,1.0)',
+            }
+                    break;
+                case '270':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(90,184,105,1.0)',
+            }
+                    break;
+                case '874':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(81,179,101,1.0)',
+            }
+                    break;
+                case '1309':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(71,174,96,1.0)',
+            }
+                    break;
+                case '2121':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(63,169,91,1.0)',
+            }
+                    break;
+                case '2246':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(57,163,87,1.0)',
+            }
+                    break;
+                case '2355':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(51,157,82,1.0)',
+            }
+                    break;
+                case '2365':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(46,151,78,1.0)',
+            }
+                    break;
+                case '2428':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(40,145,73,1.0)',
+            }
+                    break;
+                case '2979':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(34,139,69,1.0)',
+            }
+                    break;
+                case '2983':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(27,133,64,1.0)',
+            }
+                    break;
+                case '3055':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(20,127,58,1.0)',
+            }
+                    break;
+                case '3720':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(13,121,53,1.0)',
+            }
+                    break;
+                case '3841':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(6,114,48,1.0)',
+            }
+                    break;
+                case '4616':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,108,43,1.0)',
+            }
+                    break;
+                case '4675':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,98,39,1.0)',
+            }
+                    break;
+                case '4825':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,88,35,1.0)',
+            }
+                    break;
+                case '6114':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,78,31,1.0)',
+            }
+                    break;
+                case '6345':
+                    return {
+                pane: 'pane_tani_2',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,68,27,1.0)',
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_tani_2');
+        map.getPane('pane_tani_2').style.zIndex = 402;
+        map.getPane('pane_tani_2').style['mix-blend-mode'] = 'normal';
+        var layer_tani_2 = new L.geoJson(json_tani_2, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_tani_2',
+            onEachFeature: pop_tani_2,
+            style: style_tani_2_0,
+        });
+        bounds_group.addLayer(layer_tani_2);
+        map.addLayer(layer_tani_2);
+        function pop_kota_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>id</strong><br />' + (feature.properties['id'] !== null ? Autolinker.link(String(feature.properties['id'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nama</th>\
+                        <td>' + (feature.properties['Nama'] !== null ? Autolinker.link(String(feature.properties['Nama'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Sawah</th>\
+                        <td>' + (feature.properties['Sawah'] !== null ? Autolinker.link(String(feature.properties['Sawah'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Lhn_tani</th>\
+                        <td>' + (feature.properties['Lhn_tani'] !== null ? Autolinker.link(String(feature.properties['Lhn_tani'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tambak</th>\
+                        <td>' + (feature.properties['Tambak'] !== null ? Autolinker.link(String(feature.properties['Tambak'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">bkn_tani</th>\
+                        <td>' + (feature.properties['bkn_tani'] !== null ? Autolinker.link(String(feature.properties['bkn_tani'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_kota_3_0(feature) {
+            switch(String(feature.properties['Lhn_tani'])) {
+                case '108':
+                    return {
+                pane: 'pane_kota_3',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,204,1.0)',
+            }
+                    break;
+                case '268':
+                    return {
+                pane: 'pane_kota_3',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(243,250,194,1.0)',
+            }
+                    break;
+                case '270':
+                    return {
+                pane: 'pane_kota_3',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(231,245,184,1.0)',
+            }
+                    break;
+                case '874':
+                    return {
+                pane: 'pane_kota_3',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(219,240,174,1.0)',
+            }
+                    break;
+                case '1309':
+                    return {
+                pane: 'pane_kota_3',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(207,235,163,1.0)',
+            }
+                    break;
+                case '2121':
+                    return {
+                pane: 'pane_kota_3',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(194,230,153,1.0)',
+            }
+                    break;
+                case '2246':
+                    return {
+                pane: 'pane_kota_3',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(179,224,147,1.0)',
+            }
+                    break;
+                case '2355':
+                    return {
+                pane: 'pane_kota_3',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(165,218,140,1.0)',
+            }
+                    break;
+                case '2365':
+                    return {
+                pane: 'pane_kota_3',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(150,211,134,1.0)',
+            }
+                    break;
+                case '2428':
+                    return {
+                pane: 'pane_kota_3',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(135,205,127,1.0)',
+            }
+                    break;
+                case '2979':
+                    return {
+                pane: 'pane_kota_3',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(120,198,121,1.0)',
+            }
+                    break;
+                case '2983':
+                    return {
+                pane: 'pane_kota_3',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(106,191,114,1.0)',
+            }
+                    break;
+                case '3055':
+                    return {
+                pane: 'pane_kota_3',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(91,184,106,1.0)',
+            }
+                    break;
+                case '3720':
+                    return {
+                pane: 'pane_kota_3',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(77,177,99,1.0)',
+            }
+                    break;
+                case '3841':
+                    return {
+                pane: 'pane_kota_3',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(63,170,91,1.0)',
+            }
+                    break;
+                case '4616':
+                    return {
+                pane: 'pane_kota_3',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(49,163,84,1.0)',
+            }
+                    break;
+                case '4675':
+                    return {
+                pane: 'pane_kota_3',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(39,151,78,1.0)',
+            }
+                    break;
+                case '4825':
+                    return {
+                pane: 'pane_kota_3',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(29,139,72,1.0)',
+            }
+                    break;
+                case '6114':
+                    return {
+                pane: 'pane_kota_3',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(19,128,66,1.0)',
+            }
+                    break;
+                case '6345':
+                    return {
+                pane: 'pane_kota_3',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(9,116,61,1.0)',
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_kota_3',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,104,55,1.0)',
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_kota_3');
+        map.getPane('pane_kota_3').style.zIndex = 403;
+        map.getPane('pane_kota_3').style['mix-blend-mode'] = 'normal';
+        var layer_kota_3 = new L.geoJson(json_kota_3, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_kota_3',
+            onEachFeature: pop_kota_3,
+            style: style_kota_3_0,
+        });
+        bounds_group.addLayer(layer_kota_3);
+        map.addLayer(layer_kota_3);
+        function pop_lahankosong_4(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>id</strong><br />' + (feature.properties['id'] !== null ? Autolinker.link(String(feature.properties['id'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Nama</th>\
+                        <td>' + (feature.properties['Nama'] !== null ? Autolinker.link(String(feature.properties['Nama'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Sawah</th>\
+                        <td>' + (feature.properties['Sawah'] !== null ? Autolinker.link(String(feature.properties['Sawah'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Lhn_tani</th>\
+                        <td>' + (feature.properties['Lhn_tani'] !== null ? Autolinker.link(String(feature.properties['Lhn_tani'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Tambak</th>\
+                        <td>' + (feature.properties['Tambak'] !== null ? Autolinker.link(String(feature.properties['Tambak'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">bkn_tani</th>\
+                        <td>' + (feature.properties['bkn_tani'] !== null ? Autolinker.link(String(feature.properties['bkn_tani'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_lahankosong_4_0(feature) {
+            switch(String(feature.properties['Sawah'])) {
+                case '823':
+                    return {
+                pane: 'pane_lahankosong_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(255,255,204,1.0)',
+            }
+                    break;
+                case '1040':
+                    return {
+                pane: 'pane_lahankosong_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(244,251,195,1.0)',
+            }
+                    break;
+                case '1265':
+                    return {
+                pane: 'pane_lahankosong_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(232,246,185,1.0)',
+            }
+                    break;
+                case '1344':
+                    return {
+                pane: 'pane_lahankosong_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(221,241,175,1.0)',
+            }
+                    break;
+                case '1536':
+                    return {
+                pane: 'pane_lahankosong_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(209,236,165,1.0)',
+            }
+                    break;
+                case '1627':
+                    return {
+                pane: 'pane_lahankosong_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(197,232,156,1.0)',
+            }
+                    break;
+                case '1829':
+                    return {
+                pane: 'pane_lahankosong_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(184,226,149,1.0)',
+            }
+                    break;
+                case '2063':
+                    return {
+                pane: 'pane_lahankosong_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(169,220,142,1.0)',
+            }
+                    break;
+                case '2088':
+                    return {
+                pane: 'pane_lahankosong_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(155,214,136,1.0)',
+            }
+                    break;
+                case '2178':
+                    return {
+                pane: 'pane_lahankosong_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(141,207,130,1.0)',
+            }
+                    break;
+                case '2184':
+                    return {
+                pane: 'pane_lahankosong_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(127,201,124,1.0)',
+            }
+                    break;
+                case '2558':
+                    return {
+                pane: 'pane_lahankosong_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(113,195,117,1.0)',
+            }
+                    break;
+                case '2721':
+                    return {
+                pane: 'pane_lahankosong_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(100,188,110,1.0)',
+            }
+                    break;
+                case '2947':
+                    return {
+                pane: 'pane_lahankosong_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(86,182,103,1.0)',
+            }
+                    break;
+                case '3595':
+                    return {
+                pane: 'pane_lahankosong_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(72,175,96,1.0)',
+            }
+                    break;
+                case '3963':
+                    return {
+                pane: 'pane_lahankosong_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(59,168,89,1.0)',
+            }
+                    break;
+                case '4075':
+                    return {
+                pane: 'pane_lahankosong_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(46,160,82,1.0)',
+            }
+                    break;
+                case '4221':
+                    return {
+                pane: 'pane_lahankosong_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(37,149,77,1.0)',
+            }
+                    break;
+                case '4937':
+                    return {
+                pane: 'pane_lahankosong_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(28,138,71,1.0)',
+            }
+                    break;
+                case '5023':
+                    return {
+                pane: 'pane_lahankosong_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(18,126,66,1.0)',
+            }
+                    break;
+                case '7253':
+                    return {
+                pane: 'pane_lahankosong_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(9,115,60,1.0)',
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_lahankosong_4',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,104,55,1.0)',
+            }
+                    break;
+            }
+        }
+        map.createPane('pane_lahankosong_4');
+        map.getPane('pane_lahankosong_4').style.zIndex = 404;
+        map.getPane('pane_lahankosong_4').style['mix-blend-mode'] = 'normal';
+        var layer_lahankosong_4 = new L.geoJson(json_lahankosong_4, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_lahankosong_4',
+            onEachFeature: pop_lahankosong_4,
+            style: style_lahankosong_4_0,
+        });
+        bounds_group.addLayer(layer_lahankosong_4);
+        map.addLayer(layer_lahankosong_4);
+        function pop_pusatdinas_5(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    for (i in e.target._eventParents) {
+                        e.target._eventParents[i].resetStyle(e.target);
+                    }
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2"><strong>id</strong><br />' + (feature.properties['id'] !== null ? Autolinker.link(String(feature.properties['id'])) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">kantor</th>\
+                        <td>' + (feature.properties['kantor'] !== null ? Autolinker.link(String(feature.properties['kantor'])) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_pusatdinas_5_0() {
+            return {
+                pane: 'pane_pusatdinas_5',
+                radius: 6.0,
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,7,21,1.0)',
+            }
+        }
+        map.createPane('pane_pusatdinas_5');
+        map.getPane('pane_pusatdinas_5').style.zIndex = 405;
+        map.getPane('pane_pusatdinas_5').style['mix-blend-mode'] = 'normal';
+        var layer_pusatdinas_5 = new L.geoJson(json_pusatdinas_5, {
+            attribution: '<a href=""></a>',
+            pane: 'pane_pusatdinas_5',
+            onEachFeature: pop_pusatdinas_5,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_pusatdinas_5_0(feature));
+            },
+        });
+        bounds_group.addLayer(layer_pusatdinas_5);
+        map.addLayer(layer_pusatdinas_5);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/pusatdinas_5.png" /> pusat dinas': layer_pusatdinas_5,'lahan kosong<br /><table><tr><td style="text-align: center;"><img src="legend/lahankosong_4_8230.png" /></td><td>823</td></tr><tr><td style="text-align: center;"><img src="legend/lahankosong_4_10401.png" /></td><td>1040</td></tr><tr><td style="text-align: center;"><img src="legend/lahankosong_4_12652.png" /></td><td>1265</td></tr><tr><td style="text-align: center;"><img src="legend/lahankosong_4_13443.png" /></td><td>1344</td></tr><tr><td style="text-align: center;"><img src="legend/lahankosong_4_15364.png" /></td><td>1536</td></tr><tr><td style="text-align: center;"><img src="legend/lahankosong_4_16275.png" /></td><td>1627</td></tr><tr><td style="text-align: center;"><img src="legend/lahankosong_4_18296.png" /></td><td>1829</td></tr><tr><td style="text-align: center;"><img src="legend/lahankosong_4_20637.png" /></td><td>2063</td></tr><tr><td style="text-align: center;"><img src="legend/lahankosong_4_20888.png" /></td><td>2088</td></tr><tr><td style="text-align: center;"><img src="legend/lahankosong_4_21789.png" /></td><td>2178</td></tr><tr><td style="text-align: center;"><img src="legend/lahankosong_4_218410.png" /></td><td>2184</td></tr><tr><td style="text-align: center;"><img src="legend/lahankosong_4_255811.png" /></td><td>2558</td></tr><tr><td style="text-align: center;"><img src="legend/lahankosong_4_272112.png" /></td><td>2721</td></tr><tr><td style="text-align: center;"><img src="legend/lahankosong_4_294713.png" /></td><td>2947</td></tr><tr><td style="text-align: center;"><img src="legend/lahankosong_4_359514.png" /></td><td>3595</td></tr><tr><td style="text-align: center;"><img src="legend/lahankosong_4_396315.png" /></td><td>3963</td></tr><tr><td style="text-align: center;"><img src="legend/lahankosong_4_407516.png" /></td><td>4075</td></tr><tr><td style="text-align: center;"><img src="legend/lahankosong_4_422117.png" /></td><td>4221</td></tr><tr><td style="text-align: center;"><img src="legend/lahankosong_4_493718.png" /></td><td>4937</td></tr><tr><td style="text-align: center;"><img src="legend/lahankosong_4_502319.png" /></td><td>5023</td></tr><tr><td style="text-align: center;"><img src="legend/lahankosong_4_725320.png" /></td><td>7253</td></tr><tr><td style="text-align: center;"><img src="legend/lahankosong_4_21.png" /></td><td></td></tr></table>': layer_lahankosong_4,'kota<br /><table><tr><td style="text-align: center;"><img src="legend/kota_3_1080.png" /></td><td>108</td></tr><tr><td style="text-align: center;"><img src="legend/kota_3_2681.png" /></td><td>268</td></tr><tr><td style="text-align: center;"><img src="legend/kota_3_2702.png" /></td><td>270</td></tr><tr><td style="text-align: center;"><img src="legend/kota_3_8743.png" /></td><td>874</td></tr><tr><td style="text-align: center;"><img src="legend/kota_3_13094.png" /></td><td>1309</td></tr><tr><td style="text-align: center;"><img src="legend/kota_3_21215.png" /></td><td>2121</td></tr><tr><td style="text-align: center;"><img src="legend/kota_3_22466.png" /></td><td>2246</td></tr><tr><td style="text-align: center;"><img src="legend/kota_3_23557.png" /></td><td>2355</td></tr><tr><td style="text-align: center;"><img src="legend/kota_3_23658.png" /></td><td>2365</td></tr><tr><td style="text-align: center;"><img src="legend/kota_3_24289.png" /></td><td>2428</td></tr><tr><td style="text-align: center;"><img src="legend/kota_3_297910.png" /></td><td>2979</td></tr><tr><td style="text-align: center;"><img src="legend/kota_3_298311.png" /></td><td>2983</td></tr><tr><td style="text-align: center;"><img src="legend/kota_3_305512.png" /></td><td>3055</td></tr><tr><td style="text-align: center;"><img src="legend/kota_3_372013.png" /></td><td>3720</td></tr><tr><td style="text-align: center;"><img src="legend/kota_3_384114.png" /></td><td>3841</td></tr><tr><td style="text-align: center;"><img src="legend/kota_3_461615.png" /></td><td>4616</td></tr><tr><td style="text-align: center;"><img src="legend/kota_3_467516.png" /></td><td>4675</td></tr><tr><td style="text-align: center;"><img src="legend/kota_3_482517.png" /></td><td>4825</td></tr><tr><td style="text-align: center;"><img src="legend/kota_3_611418.png" /></td><td>6114</td></tr><tr><td style="text-align: center;"><img src="legend/kota_3_634519.png" /></td><td>6345</td></tr><tr><td style="text-align: center;"><img src="legend/kota_3_20.png" /></td><td></td></tr></table>': layer_kota_3,'tani<br /><table><tr><td style="text-align: center;"><img src="legend/tani_2_8230.png" /></td><td>823</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_10401.png" /></td><td>1040</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_12652.png" /></td><td>1265</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_13443.png" /></td><td>1344</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_15364.png" /></td><td>1536</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_16275.png" /></td><td>1627</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_18296.png" /></td><td>1829</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_20637.png" /></td><td>2063</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_20888.png" /></td><td>2088</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_21789.png" /></td><td>2178</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_218410.png" /></td><td>2184</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_255811.png" /></td><td>2558</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_272112.png" /></td><td>2721</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_294713.png" /></td><td>2947</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_359514.png" /></td><td>3595</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_396315.png" /></td><td>3963</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_407516.png" /></td><td>4075</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_422117.png" /></td><td>4221</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_493718.png" /></td><td>4937</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_502319.png" /></td><td>5023</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_725320.png" /></td><td>7253</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_21.png" /></td><td></td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_10822.png" /></td><td>108</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_26823.png" /></td><td>268</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_27024.png" /></td><td>270</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_87425.png" /></td><td>874</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_130926.png" /></td><td>1309</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_212127.png" /></td><td>2121</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_224628.png" /></td><td>2246</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_235529.png" /></td><td>2355</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_236530.png" /></td><td>2365</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_242831.png" /></td><td>2428</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_297932.png" /></td><td>2979</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_298333.png" /></td><td>2983</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_305534.png" /></td><td>3055</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_372035.png" /></td><td>3720</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_384136.png" /></td><td>3841</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_461637.png" /></td><td>4616</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_467538.png" /></td><td>4675</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_482539.png" /></td><td>4825</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_611440.png" /></td><td>6114</td></tr><tr><td style="text-align: center;"><img src="legend/tani_2_634541.png" /></td><td>6345</td></tr></table>': layer_tani_2,'tambak<br /><table><tr><td style="text-align: center;"><img src="legend/tambak_1_40.png" /></td><td>4</td></tr><tr><td style="text-align: center;"><img src="legend/tambak_1_71.png" /></td><td>7</td></tr><tr><td style="text-align: center;"><img src="legend/tambak_1_82.png" /></td><td>8</td></tr><tr><td style="text-align: center;"><img src="legend/tambak_1_313.png" /></td><td>31</td></tr><tr><td style="text-align: center;"><img src="legend/tambak_1_444.png" /></td><td>44</td></tr><tr><td style="text-align: center;"><img src="legend/tambak_1_785.png" /></td><td>78</td></tr><tr><td style="text-align: center;"><img src="legend/tambak_1_886.png" /></td><td>88</td></tr><tr><td style="text-align: center;"><img src="legend/tambak_1_1097.png" /></td><td>109</td></tr><tr><td style="text-align: center;"><img src="legend/tambak_1_2028.png" /></td><td>202</td></tr><tr><td style="text-align: center;"><img src="legend/tambak_1_2109.png" /></td><td>210</td></tr><tr><td style="text-align: center;"><img src="legend/tambak_1_40810.png" /></td><td>408</td></tr><tr><td style="text-align: center;"><img src="legend/tambak_1_42811.png" /></td><td>428</td></tr><tr><td style="text-align: center;"><img src="legend/tambak_1_53412.png" /></td><td>534</td></tr><tr><td style="text-align: center;"><img src="legend/tambak_1_122513.png" /></td><td>1225</td></tr><tr><td style="text-align: center;"><img src="legend/tambak_1_124114.png" /></td><td>1241</td></tr><tr><td style="text-align: center;"><img src="legend/tambak_1_135815.png" /></td><td>1358</td></tr><tr><td style="text-align: center;"><img src="legend/tambak_1_136916.png" /></td><td>1369</td></tr><tr><td style="text-align: center;"><img src="legend/tambak_1_148817.png" /></td><td>1488</td></tr><tr><td style="text-align: center;"><img src="legend/tambak_1_274218.png" /></td><td>2742</td></tr><tr><td style="text-align: center;"><img src="legend/tambak_1_19.png" /></td><td></td></tr></table>': layer_tambak_1,"Google Road": overlay_GoogleRoad_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        var i = 0;
+        layer_tambak_1.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Nama'] !== null?String('<div style="color: #000000; font-size: 8pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['Nama']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_tambak_1'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_tani_2.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Nama'] !== null?String('<div style="color: #000000; font-size: 8pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['Nama']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_tani_2'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_kota_3.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Nama'] !== null?String('<div style="color: #000000; font-size: 8pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['Nama']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_kota_3'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_lahankosong_4.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Nama'] !== null?String('<div style="color: #000000; font-size: 8pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['Nama']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_lahankosong_4'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_pusatdinas_5.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['kantor'] !== null?String('<div style="color: #e31a1c; font-size: 8pt; font-weight: bold; font-style: italic; font-family: \'Monotype Corsiva\', sans-serif;">' + layer.feature.properties['kantor']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_pusatdinas_5'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        map.addControl(new L.Control.Search({
+            layer: layer_tani_2,
+            initial: false,
+            hideMarkerOnCollapse: true,
+            propertyName: 'Sawah'}));
+        resetLabels([layer_tambak_1,layer_tani_2,layer_kota_3,layer_lahankosong_4,layer_pusatdinas_5]);
+        map.on("zoomend", function(){
+            resetLabels([layer_tambak_1,layer_tani_2,layer_kota_3,layer_lahankosong_4,layer_pusatdinas_5]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_tambak_1,layer_tani_2,layer_kota_3,layer_lahankosong_4,layer_pusatdinas_5]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_tambak_1,layer_tani_2,layer_kota_3,layer_lahankosong_4,layer_pusatdinas_5]);
+        });
+        </script>
+    </body>
+</html>
